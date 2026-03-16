@@ -237,6 +237,7 @@
             overflow: hidden;
             width: 100%;
             margin-top: 52px;
+            min-height: 85vh;
         }
 
         .hero-video-bg {
@@ -251,6 +252,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center top;
         }
 
         .hero-video-bg img {
@@ -261,6 +263,7 @@
         .hero-video-bg video {
             position: absolute;
             inset: 0;
+            object-position: center top;
             opacity: 0;
             transition: opacity 1s ease;
         }
@@ -786,6 +789,105 @@
 
         .cta-btn svg { width: 18px; height: 18px; }
 
+        /* ─── MODAL GUÍA ─── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: linear-gradient(145deg, #12142a, #0d0f1e);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            padding: 44px 36px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.1);
+            animation: modalIn 0.35s ease both;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .modal-close:hover { color: #fff; }
+
+        .modal-icon {
+            font-size: 2.8rem;
+            margin-bottom: 16px;
+        }
+
+        .modal-box h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 14px;
+            letter-spacing: 0.02em;
+        }
+
+        .modal-box p {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .modal-box p strong {
+            color: var(--accent-bright);
+        }
+
+        .modal-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 24px var(--accent-glow);
+        }
+
+        .modal-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+
+        .modal-download-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
         /* ─── TIP BOX ─── */
         .tip-box {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(167, 139, 250, 0.04));
@@ -1134,7 +1236,7 @@
         <!-- NAV -->
         <nav class="reveal">
             <a href="#" class="logo">supercursos<span>.es</span></a>
-            <a href="guia-supercursos.pdf" download class="nav-tag" style="text-decoration:none;">Guía Gratuita</a>
+            <a href="#" onclick="document.getElementById('guiaModal').style.display='flex'; return false;" class="nav-tag" style="text-decoration:none; cursor:pointer;">Guía Gratuita</a>
         </nav>
     </div>
 
@@ -1465,6 +1567,26 @@ con ese análisis.</pre>
             });
         });
     </script>
+
+    <!-- MODAL GUÍA GRATUITA -->
+    <div class="modal-overlay" id="guiaModal" onclick="if(event.target===this) this.style.display='none'">
+        <div class="modal-box">
+            <button class="modal-close" onclick="document.getElementById('guiaModal').style.display='none'">&times;</button>
+            <div class="modal-icon">📘</div>
+            <h3>Tu guía gratuita te espera</h3>
+            <p>Hemos preparado con mucho cariño una <strong>guía paso a paso</strong> para que puedas empezar desde cero. Dentro encontrarás:</p>
+            <p>✅ Cómo instalar y configurar Claude Code<br>
+               ✅ Autenticación con Google y NotebookLM<br>
+               ✅ Tu primer comando de investigación<br>
+               ✅ Solución de problemas comunes<br>
+               ✅ Ideas y ejemplos de uso</p>
+            <p>Sin complicaciones, sin letra pequeña. Solo tú, la IA y tu curiosidad.</p>
+            <a href="guia-supercursos.pdf" download class="modal-download-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Descargar guía PDF
+            </a>
+        </div>
+    </div>
 
 </body>
 </html>
