@@ -183,11 +183,19 @@
 
         /* ─── NAV ─── */
         nav {
-            padding: 28px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 12px 28px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border);
+            background: rgba(7, 8, 12, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .logo {
@@ -277,7 +285,7 @@
         }
 
         .hero {
-            padding: 100px 0 80px;
+            padding: 60px 0 80px;
             text-align: center;
             position: relative;
             z-index: 2;
@@ -290,9 +298,9 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.14em;
-            color: var(--accent-bright);
-            background: var(--accent-dim);
-            border: 1px solid var(--accent-mid);
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             padding: 9px 22px;
             border-radius: 100px;
             margin-bottom: 36px;
@@ -303,7 +311,7 @@
             content: '';
             width: 7px;
             height: 7px;
-            background: var(--accent-bright);
+            background: #ffffff;
             border-radius: 50%;
             animation: pulse 2s infinite;
             box-shadow: 0 0 10px var(--accent-glow);
@@ -333,12 +341,14 @@
 
         .hero-sub {
             font-size: 1.05rem;
-            color: rgba(255, 255, 255, 0.85);
+            color: #ffffff;
+            font-weight: 700;
             max-width: 520px;
             margin: 0 auto 48px;
             line-height: 1.8;
+            letter-spacing: 0.04em;
             animation: fadeUp 0.8s 0.2s ease both;
-            text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 16px rgba(0,0,0,0.7);
         }
 
         @keyframes fadeUp {
@@ -1124,7 +1134,7 @@
         <!-- NAV -->
         <nav class="reveal">
             <a href="#" class="logo">supercursos<span>.es</span></a>
-            <span class="nav-tag">Guía Gratuita</span>
+            <a href="guia-supercursos.pdf" download class="nav-tag" style="text-decoration:none;">Guía Gratuita</a>
         </nav>
 
         <!-- HERO -->
@@ -1137,7 +1147,7 @@
             </div>
             <div class="hero-video-overlay"></div>
             <section class="hero">
-                <div class="hero-badge">Sistema Automatizado</div>
+                <div class="hero-badge">Gratis · Sistema Automatizado</div>
                 <h1>Aprender<br><em>Enseñando</em></h1>
                 <p class="hero-sub">Un solo prompt conecta Claude Code con NotebookLM de Google. Busca vídeos en YouTube sobre cualquier tema y genera resúmenes, podcasts e infografías — todo automático.</p>
                 <a href="#empezar" class="cta-btn">

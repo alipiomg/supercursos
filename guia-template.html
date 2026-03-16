@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+  @page {
+    size: A4;
+    margin: 2cm 2.5cm;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: #1a1a2e;
+    line-height: 1.7;
+    font-size: 11pt;
+  }
+
+  .cover {
+    text-align: center;
+    padding: 80px 0 40px;
+    page-break-after: always;
+  }
+
+  .cover h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36pt;
+    color: #6366f1;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .cover .subtitle {
+    font-size: 14pt;
+    color: #555;
+    margin-bottom: 40px;
+  }
+
+  .cover .brand {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18pt;
+    color: #6366f1;
+    margin-top: 60px;
+  }
+
+  .cover .url {
+    font-size: 10pt;
+    color: #888;
+    margin-top: 8px;
+  }
+
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20pt;
+    color: #6366f1;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #e8e8ff;
+    padding-bottom: 6px;
+  }
+
+  h3 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2d2d5e;
+    margin-top: 20px;
+    margin-bottom: 6px;
+  }
+
+  p, li {
+    margin-bottom: 8px;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  code {
+    background: #f0f0ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10pt;
+    color: #4f46e5;
+  }
+
+  .code-block {
+    background: #1a1a2e;
+    color: #c4d6f0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    margin: 12px 0;
+    white-space: pre-wrap;
+  }
+
+  .tip {
+    background: #f0f0ff;
+    border-left: 4px solid #6366f1;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 14px 0;
+  }
+
+  .tip strong {
+    color: #4f46e5;
+  }
+
+  .warning {
+    background: #fff8f0;
+    border-left: 4px solid #f59e0b;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 14px 0;
+  }
+
+  .step-number {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: #6366f1;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: 700;
+    font-size: 12pt;
+    margin-right: 8px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8ff;
+    color: #888;
+    font-size: 9pt;
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+  <h1>Guía de Inicio Rápido</h1>
+  <p class="subtitle">Investigación Automatizada con IA<br>Claude Code + NotebookLM</p>
+  <div style="margin: 40px 0; color: #aaa;">———</div>
+  <p style="color: #666; max-width: 380px; margin: 0 auto;">Aprende a automatizar investigaciones completas usando inteligencia artificial. De cero a tu primera infografía en minutos.</p>
+  <p class="brand">supercursos.es</p>
+  <p class="url">https://supercursos.es</p>
+</div>
+
+<!-- CONTENIDO -->
+
+<h2>1. ¿Qué es Supercursos?</h2>
+<p>Supercursos es un sistema automatizado que conecta <strong>Claude Code</strong> (la IA de Anthropic) con <strong>NotebookLM</strong> (de Google) para realizar investigaciones completas con un solo comando.</p>
+<p>Con un solo prompt puedes:</p>
+<ul>
+  <li>Buscar los vídeos más relevantes de YouTube sobre cualquier tema</li>
+  <li>Enviarlos automáticamente a NotebookLM para su análisis</li>
+  <li>Generar resúmenes, podcasts e infografías — todo automático</li>
+</ul>
+
+<h2>2. Requisitos previos</h2>
+<ul>
+  <li><strong>Claude Code</strong> instalado y configurado (<a href="https://claude.ai/code">claude.ai/code</a>)</li>
+  <li><strong>Cuenta de Google</strong> para usar NotebookLM</li>
+  <li><strong>Python 3.8+</strong> (si no lo tienes, Claude Code lo instala por ti)</li>
+  <li>Conexión a internet</li>
+</ul>
+
+<h2>3. Configuración paso a paso</h2>
+
+<h3><span class="step-number">1</span> Inicia Claude Code</h3>
+<p>Abre tu terminal y lanza Claude Code. Copia y pega el prompt de configuración que encontrarás en supercursos.es. Claude Code empezará a instalar los skills necesarios.</p>
+
+<div class="tip">
+  <strong>Consejo:</strong> Cuando Claude Code pida permisos para ejecutar comandos o instalar paquetes, pulsa <code>Y</code> o <code>Enter</code> para aceptar.
+</div>
+
+<h3><span class="step-number">2</span> Autenticación con Google</h3>
+<p>Cuando Claude te indique que es hora de autenticarte:</p>
+<ol>
+  <li>Abre una terminal <strong>completamente nueva</strong> (no la de Claude Code)</li>
+  <li>Ejecuta el siguiente comando:</li>
+</ol>
+<div class="code-block">notebooklm login</div>
+<p>Se abrirá un navegador — inicia sesión con tu cuenta de Google. Cierra esa terminal y vuelve a Claude Code.</p>
+
+<div class="warning">
+  <strong>Importante:</strong> No ejecutes este comando dentro de la terminal de Claude Code. Usa siempre una terminal nueva y separada.
+</div>
+
+<h3><span class="step-number">3</span> Verificación</h3>
+<p>Claude Code confirmará que todo está listo. Si hay algún problema, él mismo te guiará para solucionarlo.</p>
+
+<h3><span class="step-number">4</span> Tu primera investigación</h3>
+<p>Copia y pega este comando en Claude Code, cambiando <code>[TU TEMA]</code> por lo que quieras investigar:</p>
+<div class="code-block">Usa el skill yt-research para encontrar los 25 vídeos más recientes sobre [TU TEMA]. Una vez que tengamos esos vídeos, envíalos a NotebookLM usando el skill notebooklm. Dame su análisis de los hallazgos principales, y luego haz que NotebookLM cree una infografía estilo pizarra con ese análisis.</div>
+
+<h2>4. ¿Qué obtienes?</h2>
+<ul>
+  <li><strong>Análisis completo</strong> de los vídeos más relevantes sobre tu tema</li>
+  <li><strong>Resumen ejecutivo</strong> generado por NotebookLM</li>
+  <li><strong>Infografía estilo pizarra</strong> lista para compartir</li>
+  <li><strong>Podcast automático</strong> (opcional) sobre el tema</li>
+</ul>
+
+<h2>5. Solución de problemas</h2>
+
+<h3>Error de autenticación</h3>
+<p>Asegúrate de ejecutar <code>notebooklm login</code> en una terminal nueva — no dentro de Claude Code ni en la misma ventana.</p>
+
+<h3>Error general</h3>
+<p>Dile a Claude Code exactamente qué error ves. Pega el mensaje de error y sigue aceptando — él lo diagnostica y arregla.</p>
+
+<h3>Skills no encontrados</h3>
+<p>Pregúntale a Claude Code: <em>"¿Puedes verificar que los skills yt-research y notebooklm están instalados?"</em></p>
+
+<h3>Límite de NotebookLM</h3>
+<p>NotebookLM tiene un límite de 50 fuentes por notebook. Si necesitas más, divide tu investigación en varios notebooks.</p>
+
+<div class="tip">
+  <strong>Recuerda:</strong> Si algo falla, simplemente cuéntaselo a Claude Code. La IA está diseñada para diagnosticar y solucionar problemas por ti.
+</div>
+
+<h2>6. Ideas de uso</h2>
+<ul>
+  <li>Investigación académica sobre cualquier disciplina</li>
+  <li>Análisis de tendencias de mercado</li>
+  <li>Preparación de clases y material educativo</li>
+  <li>Resúmenes de conferencias y charlas</li>
+  <li>Creación de contenido para redes sociales</li>
+  <li>Análisis competitivo de tu industria</li>
+</ul>
+
+<div class="footer">
+  <p><strong>supercursos.es</strong> — Aprender Enseñando</p>
+  <p>Sistema gratuito de investigación automatizada con IA</p>
+</div>
+
+</body>
+</html>
