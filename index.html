@@ -227,6 +227,8 @@
         .hero-wrapper {
             position: relative;
             overflow: hidden;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
         }
 
         .hero-video-bg {
@@ -317,26 +319,26 @@
             font-size: clamp(2.8rem, 6vw, 4.4rem);
             line-height: 1.08;
             letter-spacing: -0.03em;
-            color: var(--text-bright);
+            color: #ffffff;
             margin-bottom: 28px;
             animation: fadeUp 0.8s 0.1s ease both;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.6);
         }
 
         h1 em {
             font-style: italic;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
         }
 
         .hero-sub {
-            font-size: 1.18rem;
-            color: var(--text);
-            max-width: 580px;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 520px;
             margin: 0 auto 48px;
             line-height: 1.8;
             animation: fadeUp 0.8s 0.2s ease both;
+            text-shadow: 0 1px 12px rgba(0,0,0,0.5);
         }
 
         @keyframes fadeUp {
@@ -1136,7 +1138,7 @@
             <div class="hero-video-overlay"></div>
             <section class="hero">
                 <div class="hero-badge">Sistema Automatizado</div>
-                <h1>Horas de investigación.<br><em>Minutos de trabajo.</em></h1>
+                <h1>Aprender<br><em>Enseñando</em></h1>
                 <p class="hero-sub">Un solo prompt conecta Claude Code con NotebookLM de Google. Busca vídeos en YouTube sobre cualquier tema y genera resúmenes, podcasts e infografías — todo automático.</p>
                 <a href="#empezar" class="cta-btn">
                     Empezar ahora
@@ -1430,6 +1432,7 @@ con ese análisis.</pre>
                 if (source) {
                     source.src = source.getAttribute('data-src');
                     video.load();
+                    video.playbackRate = 0.5;
                     video.play().then(() => {
                         video.classList.add('loaded');
                     }).catch(() => {
