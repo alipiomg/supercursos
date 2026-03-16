@@ -828,6 +828,160 @@
             box-shadow: 0 0 12px var(--accent-glow);
         }
 
+        /* ─── PRELOADER ─── */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #07080c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-visual {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin-bottom: 40px;
+        }
+
+        /* Neural network CSS effect */
+        .preloader-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, #fff 0%, var(--accent-bright) 40%, transparent 70%);
+            border-radius: 50%;
+            animation: coreGlow 2s ease-in-out infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes coreGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px rgba(99,102,241,0.6), 0 0 80px rgba(99,102,241,0.3); }
+            50% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 60px rgba(129,140,248,0.8), 0 0 120px rgba(99,102,241,0.4); }
+        }
+
+        .preloader-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            border: 1px solid transparent;
+        }
+
+        .preloader-ring:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            margin: -60px 0 0 -60px;
+            border-top-color: rgba(99, 102, 241, 0.6);
+            border-right-color: rgba(167, 139, 250, 0.3);
+            animation: spin 2.5s linear infinite;
+        }
+
+        .preloader-ring:nth-child(3) {
+            width: 180px;
+            height: 180px;
+            margin: -90px 0 0 -90px;
+            border-bottom-color: rgba(129, 140, 248, 0.4);
+            border-left-color: rgba(99, 102, 241, 0.2);
+            animation: spin 3.5s linear infinite reverse;
+        }
+
+        .preloader-ring:nth-child(4) {
+            width: 240px;
+            height: 240px;
+            margin: -120px 0 0 -120px;
+            border-top-color: rgba(167, 139, 250, 0.25);
+            border-right-color: rgba(99, 102, 241, 0.15);
+            animation: spin 5s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Neural tendrils */
+        .preloader-tendril {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 100px;
+            transform-origin: top center;
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.7), transparent);
+            border-radius: 2px;
+            animation: tendrilPulse 2s ease-in-out infinite;
+        }
+
+        .preloader-tendril::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent-bright);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+        }
+
+        @keyframes tendrilPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .preloader-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.8rem;
+            color: var(--accent-bright);
+            letter-spacing: -0.02em;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+
+        .preloader-text span {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .preloader-sub {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-top: 12px;
+            animation: fadeInOut 2s ease-in-out infinite 0.3s;
+        }
+
+        .preloader-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
         /* ─── PARALLAX STARS ─── */
         .stars {
             position: fixed;
@@ -857,6 +1011,30 @@
     </style>
 </head>
 <body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-visual">
+            <div class="preloader-core"></div>
+            <div class="preloader-ring"></div>
+            <div class="preloader-ring"></div>
+            <div class="preloader-ring"></div>
+            <div class="preloader-tendril" style="transform: rotate(0deg);"></div>
+            <div class="preloader-tendril" style="transform: rotate(30deg); height: 90px; animation-delay: 0.15s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(60deg); height: 110px; animation-delay: 0.3s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(90deg); height: 85px; animation-delay: 0.45s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(120deg); height: 105px; animation-delay: 0.6s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(150deg); height: 95px; animation-delay: 0.75s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(180deg); height: 100px; animation-delay: 0.9s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(210deg); height: 88px; animation-delay: 1.05s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(240deg); height: 112px; animation-delay: 1.2s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(270deg); height: 92px; animation-delay: 1.35s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(300deg); height: 98px; animation-delay: 1.5s;"></div>
+            <div class="preloader-tendril" style="transform: rotate(330deg); height: 108px; animation-delay: 1.65s;"></div>
+        </div>
+        <div class="preloader-text">supercursos<span>.es</span></div>
+        <div class="preloader-sub">Cargando sistema<span class="preloader-dots"></span></div>
+    </div>
 
     <!-- Scroll Progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -1160,6 +1338,15 @@ con ese análisis.</pre>
             event.target.textContent = '¡Copiado!';
             setTimeout(() => event.target.textContent = 'Copiar', 2000);
         }
+
+        // ===== PRELOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('fade-out');
+                setTimeout(() => preloader.remove(), 600);
+            }, 2200);
+        });
 
         // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
