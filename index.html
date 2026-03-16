@@ -235,8 +235,7 @@
         .hero-wrapper {
             position: relative;
             overflow: hidden;
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
+            width: 100%;
             margin-top: 52px;
         }
 
@@ -326,8 +325,8 @@
         h1 {
             font-family: 'Instrument Serif', serif;
             font-size: clamp(2.8rem, 6vw, 4.4rem);
-            line-height: 1.08;
-            letter-spacing: -0.03em;
+            line-height: 1.15;
+            letter-spacing: 0.15em;
             color: #ffffff;
             margin-bottom: 28px;
             animation: fadeUp 0.8s 0.1s ease both;
@@ -1137,9 +1136,10 @@
             <a href="#" class="logo">supercursos<span>.es</span></a>
             <a href="guia-supercursos.pdf" download class="nav-tag" style="text-decoration:none;">Guía Gratuita</a>
         </nav>
+    </div>
 
-        <!-- HERO -->
-        <div class="hero-wrapper">
+    <!-- HERO (outside container, full width, below nav) -->
+    <div class="hero-wrapper">
             <div class="hero-video-bg">
                 <img src="hf_20260316_182422_219148c4-cea5-46e0-80c1-6931525ceeea.jpeg" alt="" loading="eager" fetchpriority="high">
                 <video id="heroVideo" muted loop playsinline preload="none">
@@ -1156,8 +1156,9 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
             </section>
-        </div>
+    </div>
 
+    <div class="container">
         <div class="divider"></div>
 
         <!-- QUÉ HACE -->
