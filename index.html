@@ -224,23 +224,61 @@
         }
 
         /* ─── HERO ─── */
+        .hero-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .hero-video-bg img,
+        .hero-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-video-bg img {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-video-bg video {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .hero-video-bg video.loaded {
+            opacity: 1;
+        }
+
+        /* Dark gradient overlay on top of video/image */
+        .hero-video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                linear-gradient(180deg,
+                    rgba(7,8,12,0.5) 0%,
+                    rgba(7,8,12,0.3) 30%,
+                    rgba(7,8,12,0.3) 60%,
+                    rgba(7,8,12,0.85) 90%,
+                    #07080c 100%),
+                radial-gradient(ellipse at center, transparent 30%, rgba(7,8,12,0.6) 100%);
+        }
+
         .hero {
             padding: 100px 0 80px;
             text-align: center;
             position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: -1;
+            z-index: 2;
         }
 
         .hero-badge {
@@ -839,6 +877,28 @@
             align-items: center;
             justify-content: center;
             transition: opacity 0.6s ease, visibility 0.6s ease;
+            overflow: hidden;
+        }
+
+        .preloader-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .preloader-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.35;
+            filter: blur(2px);
+        }
+
+        .preloader-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(7,8,12,0.4) 0%, rgba(7,8,12,0.85) 70%, #07080c 100%);
         }
 
         .preloader.fade-out {
@@ -851,6 +911,12 @@
             width: 280px;
             height: 280px;
             margin-bottom: 40px;
+            z-index: 1;
+        }
+
+        .preloader-text, .preloader-sub {
+            position: relative;
+            z-index: 1;
         }
 
         /* Neural network CSS effect */
@@ -1014,6 +1080,9 @@
 
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
+        <div class="preloader-bg">
+            <img src="hf_20260316_182422_219148c4-cea5-46e0-80c1-6931525ceeea.jpeg" alt="" loading="eager" fetchpriority="high">
+        </div>
         <div class="preloader-visual">
             <div class="preloader-core"></div>
             <div class="preloader-ring"></div>
@@ -1057,15 +1126,24 @@
         </nav>
 
         <!-- HERO -->
-        <section class="hero">
-            <div class="hero-badge">Sistema Automatizado</div>
-            <h1>Horas de investigación.<br><em>Minutos de trabajo.</em></h1>
-            <p class="hero-sub">Un solo prompt conecta Claude Code con NotebookLM de Google. Busca vídeos en YouTube sobre cualquier tema y genera resúmenes, podcasts e infografías — todo automático.</p>
-            <a href="#empezar" class="cta-btn">
-                Empezar ahora
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-        </section>
+        <div class="hero-wrapper">
+            <div class="hero-video-bg">
+                <img src="hf_20260316_182422_219148c4-cea5-46e0-80c1-6931525ceeea.jpeg" alt="" loading="eager" fetchpriority="high">
+                <video id="heroVideo" muted loop playsinline preload="none">
+                    <source data-src="hf_20260316_183347_8e920a2a-b04d-487b-aba0-b21fdb8b6077.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-video-overlay"></div>
+            <section class="hero">
+                <div class="hero-badge">Sistema Automatizado</div>
+                <h1>Horas de investigación.<br><em>Minutos de trabajo.</em></h1>
+                <p class="hero-sub">Un solo prompt conecta Claude Code con NotebookLM de Google. Busca vídeos en YouTube sobre cualquier tema y genera resúmenes, podcasts e infografías — todo automático.</p>
+                <a href="#empezar" class="cta-btn">
+                    Empezar ahora
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </section>
+        </div>
 
         <div class="divider"></div>
 
@@ -1345,6 +1423,19 @@ con ese análisis.</pre>
                 const preloader = document.getElementById('preloader');
                 preloader.classList.add('fade-out');
                 setTimeout(() => preloader.remove(), 600);
+
+                // Lazy load hero video after preloader is gone
+                const video = document.getElementById('heroVideo');
+                const source = video.querySelector('source[data-src]');
+                if (source) {
+                    source.src = source.getAttribute('data-src');
+                    video.load();
+                    video.play().then(() => {
+                        video.classList.add('loaded');
+                    }).catch(() => {
+                        video.classList.add('loaded');
+                    });
+                }
             }, 2200);
         });
 
