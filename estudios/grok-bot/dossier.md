@@ -99,6 +99,43 @@ Primera tarea sugerida: adjuntar un documento y pedir un resumen sin modificar e
 
 ---
 
+## Ampliación: caso del alumno — Hermes en un VPS + redes sociales (7 nov 2026)
+
+**Objetivo del alumno:** instalar Hermes en un VPS, dejarlo mantenido y actualizado con Grok Bot, y publicar en redes de forma automática con imágenes y vídeos generados por IA.
+
+### Hermes Agent (Nous Research)
+- Agente de IA **de código abierto que tú alojas** (*self-hosted*). Es la pieza que se instala en tu VPS.
+- Se instala con un comando oficial de Nous Research y se configura con `hermes setup`, donde eliges el proveedor del modelo (uno en la nube o uno local con Ollama o vLLM; el local necesita un VPS con GPU).
+- Para que siga funcionando tras un reinicio se ejecuta como servicio (systemd o el comando `gateway install`). Varias guías recomiendan **un usuario propio, nunca root**.
+- Requisitos: 1 vCPU y entre 1 y 2 GB de RAM según la fuente. Como el modelo corre fuera, basta un VPS pequeño (~5 $/mes).
+- Alternativa: Docker, con la imagen `nousresearch/hermes-agent:latest`. No funciona en Windows nativo.
+- *Conflicto:* las guías no coinciden en la URL de instalación (hay una antigua, hermes-agent.org, que da error). Usa la de la documentación oficial.
+
+### Grok Bot + VPS: son dos máquinas distintas
+```
+ [Ordenador en la nube de Grok Bot]  ──SSH──►  [TU VPS con Hermes]
+   gestionado por xAI/Cursor,                  tuyo, con acceso root,
+   compartido por todos tus bots               aquí vive Hermes
+```
+- El ordenador de Grok Bot tiene navegador, archivos y **terminal**, pero **no es un VPS**: no es tuyo, no lo puedes alojar tú y lo comparten todos tus bots.
+- Grok Bot sale a internet desde **IPs fijas compartidas**, así que puedes limitar en el cortafuegos del VPS desde qué IPs se puede entrar por SSH.
+- Para servicios privados (como SSH sin exponerlo a internet), la documentación oficial describe usar **cloudflared + Cloudflare Access**.
+- Actualizar o reiniciar el VPS cuenta como **cambio en producción**, así que por defecto el bot pide aprobación.
+- *Conflicto:* una guía de terceros dice que Grok Bot "no sirve para tareas con SSH", pero la documentación oficial sí describe terminal y conexión a redes privadas. Lo prudente es probarlo con tareas pequeñas.
+- *Sin confirmar:* usuarios han entrado por SSH **al propio ordenador de Grok Bot** usando Tailscale. Es un truco no oficial, y no es lo que necesitas.
+- **Riesgo clave:** la clave SSH del VPS quedará en un ordenador que comparten todos tus bots. Usa una clave exclusiva, un usuario sin root y comandos limitados.
+
+### Redes sociales, imágenes y vídeo
+- Grok Bot **no publica en redes de serie**: necesita un **conector o plugin MCP** de terceros (Postiz, Blotato, PublishQ o WoopSocial; varios cubren 9 plataformas).
+- **Grok Imagine** genera imágenes y vídeo. Lo publicas a través del conector.
+- Las rutinas pueden preparar y programar publicaciones mientras estás desconectado. Publicar es un "mensaje externo", así que por defecto **pide aprobación**. Los propios proveedores recomiendan mantenerla.
+- *Aviso:* casi todo esto sale de páginas comerciales de los propios conectores.
+
+### Pregunta de diseño abierta (para el bloque de síntesis)
+Hermes también es un agente que puede programar tareas. ¿Quién debe hacer cada trabajo: Hermes desde dentro del VPS o Grok Bot desde fuera? Tener dos agentes significa dos cosas que vigilar.
+
+---
+
 ## Glosario
 
 - **Agente de IA:** IA que no solo responde, sino que ejecuta acciones.
@@ -107,6 +144,10 @@ Primera tarea sugerida: adjuntar un documento y pedir un resumen sin modificar e
 - **Prompt injection:** instrucciones ocultas en contenido externo que secuestran al agente.
 - **Rutina:** tarea programada o activada por un evento.
 - **Skill:** procedimiento guardado y reutilizable.
+- **VPS:** servidor privado virtual que alquilas y controlas tú.
+- **SSH:** forma segura de conectarse a la terminal de un servidor remoto.
+- **Self-hosted:** software que instalas y mantienes en tu propia máquina.
+- **systemd:** gestor de servicios de Linux que arranca programas solos al encender el servidor.
 
 ---
 
@@ -143,6 +184,18 @@ Precios:
 - [Grok Bot Pricing: Every Route Compared — cellcog](https://cellcog.ai/blog/grok-bot-pricing/)
 - [The Grok Subscription Maze — JDB Consulting](https://jdb.net/grok-subscription-comparison/)
 - [Grok Bot Pricing and Limits — ToolColumn](https://www.toolcolumn.com/learn/grok-bot-pricing-by-plan)
+
+Caso Hermes + VPS + redes:
+- [Grok Bot — xAI Docs](https://docs.x.ai/grok-bot/overview)
+- [Connect to private networks — xAI Docs](https://docs.x.ai/grok-bot/private-networks)
+- [How to Install Hermes Agent on a VPS — Contabo](https://contabo.com/blog/how-to-install-hermes-agent-on-a-vps-2026-step-by-step-guide/)
+- [Self-Host Hermes Agent on a VPS: v0.20 Guide — Virtua](https://www.virtua.cloud/learn/en/tutorials/self-host-hermes-agent-vps)
+- [Hermes Agent hosting: a $5 VPS is enough — SSD Nodes](https://www.ssdnodes.com/learn/self-host-hermes-agent-vps)
+- [Grok Bot Workspaces and Specs — flocker.md](https://flocker.md/blog/grok-bot-roles-workspace-and-specs/)
+- [SSH al ordenador de Grok Bot con Tailscale — post en X](https://x.com/old_pgmrs_will/status/2094217821211464069)
+- [Schedule Social Media Posts with Grok Bot — Postiz](https://postiz.com/grok-bot)
+- [Grok Bot Social Media MCP Setup — Blotato](https://www.blotato.com/ai-agent/grok-bot)
+- [Grok AI Agent for Social Media: 5 Real Jobs Tested — ContentStudio](https://contentstudio.io/blog/can-grok-run-social-media)
 
 Seguridad:
 - [Grok Bot phishing email catch exposes AI agent risks — Cybernews](https://cybernews.com/ai-news/grok-bot-phishing-spacexai-invite-scam/)
