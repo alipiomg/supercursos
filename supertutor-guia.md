@@ -15,7 +15,15 @@ La diferencia clave frente a usar Claude de forma normal:
 
 ## Instalación
 
-La skill está instalada globalmente en `~/.claude/skills/supertutor/SKILL.md`.
+La skill vive en este repositorio: `.claude/skills/supertutor/SKILL.md`.
+
+| Dónde quieres usarla | Qué hacer |
+|---|---|
+| **Claude Code en la web** con este repo | Nada: se carga sola en cada sesión del repo. |
+| **Tu PC con Windows, en cualquier carpeta** (global) | Copia la carpeta `supertutor` a `C:\Users\alimu\.claude\skills\supertutor\` |
+| **Otro repositorio** | Copia la carpeta a `.claude/skills/supertutor/` de ese repo. |
+
+> No la instales en `~/.claude/skills/` de una sesión en la nube: ese contenedor se borra al reiniciarse y la skill desaparece.
 
 Para invocarla, escribe en Claude Code:
 ```
@@ -67,6 +75,11 @@ El tutor te evalúa con 3-5 preguntas y te ubica automáticamente.
 ## Flujo de una Sesión Estándar
 
 ```
+[INVESTIGACIÓN]  (solo si el tema es reciente, de nicho o cambia rápido)
+   ↓
+SuperTutor busca en la web y guarda estudios/<tema>/dossier.md
+con hechos, conflictos entre fuentes y bloques temáticos
+   ↓
 [INICIO]
    ↓
 SuperTutor pregunta: tema, objetivo, tiempo disponible y energía
@@ -156,6 +169,7 @@ Al final de cada sesión, SuperTutor genera un mensaje de retoma. Guárdalo y p�
 ```
 SuperTutor, retomamos.
 Tema: [X]
+Dossier: estudios/[tema]/dossier.md
 Nivel: [N]
 Diales: D:[X] V:[X] P:[X] M:[modo] E:[X] Ch:[X]
 Empezamos por: [bloque pendiente]
@@ -180,22 +194,31 @@ Puedes pedirle al tutor que ajuste los diales en cualquier momento:
 
 ---
 
-## El Prompt de Lanzamiento con Fable
+## Cómo pedírselo bien (no hace falta un prompt largo)
 
-Usa este prompt completo para lanzar SuperTutor con el modelo Fable y aprovechar su máxima capacidad:
+La skill ya contiene todas las instrucciones. Un prompt largo solo repetiría lo que ya dice y podría contradecirlo. Lo que sí marca la diferencia es darle **contexto sobre ti**:
 
 ```
-Eres SuperTutor, un tutor adaptativo de alto rendimiento basado en la metodología Salgadoía Profesor.
+/supertutor Quiero aprender [tema].
+Para qué: [trabajo / examen / montar algo / curiosidad].
+Lo que ya sé: [una línea].
+Tiempo hoy: [minutos]. Energía: [alta / media / baja].
+```
 
-INSTRUCCIONES DE ARRANQUE:
-1. Ejecuta el Módulo 1 completo: recoge contexto (máx. 3 preguntas), haz la evaluación inicial (3-5 preguntas diagnósticas escalonadas), anuncia el diagnóstico con nivel y configuración de diales, y confirma el pacto de sesión.
-2. Usa el Módulo 2 para cada bloque temático, ajustando los 6 diales en tiempo real.
-3. Si el alumno menciona documentos propios o "modo oposición", activa el Módulo 3.
-4. Al terminar, ejecuta el Módulo 4: re-evaluación, informe de sesión y mensaje de retoma.
+Para un tema nuevo o que cambia rápido (una herramienta de IA, una ley reciente), añade:
+```
+Investiga primero y guarda el dossier antes de empezar.
+```
 
-DIALES INICIALES: D:2 V:2 P:2 M:Analógico E:4 Ch:2
+**El modelo** se elige en Claude Code con `/model`, no dentro de la skill. Usa el más capaz que tengas (por ejemplo Fable) para la fase de investigación, que es la más exigente.
 
-Comienza presentándote brevemente (2 líneas máximo) y lanza la primera pregunta de contexto.
+### Ejemplo real: Grok Bot
+En `estudios/grok-bot/dossier.md` tienes el dossier ya hecho. Para estudiarlo:
+```
+/supertutor Quiero aprender Grok Bot. Usa estudios/grok-bot/dossier.md.
+Para qué: decidir si me sirve para automatizar tareas de mi negocio.
+Lo que ya sé: he usado Grok como chat, nada más.
+Tiempo hoy: 30 minutos. Energía: media.
 ```
 
 ---
@@ -224,6 +247,7 @@ Sí. La metodología es agnóstica al contenido: funciona para oposiciones, idio
 ```
 SUPERTUTOR — CHULETA RÁPIDA
 
+INVESTIGA:  tema nuevo → dossier en estudios/<tema>/dossier.md
 INICIO:     /supertutor  →  describe tema + objetivo + energía
 EVALÚA:     3-5 preguntas → ubica tu nivel (0-4)
 CALIBRA:    6 diales → D V P M E Ch
